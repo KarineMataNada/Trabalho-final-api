@@ -1,12 +1,16 @@
 package com.cafeteria.model;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,12 +30,21 @@ public class Pedidos {
 	
 	private String valorTotalDoPedido;
 	
-	private Date dataDoPedido;
+	//private Date dataDoPedido;
 	
 	private String status;
 	
-	//aqui se conecta com o Cliente
-	private String clienteId;
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+	
+	@ManyToMany
+	@JoinTable(name="Peditos_Produtos", 
+			   joinColumns = @JoinColumn(name = "pedidos_id"), 
+			   inverseJoinColumns = @JoinColumn(name = "produto_id"))
+	private List<Produto> produtos;
+	
+
 
 	public Long getId() {
 		return id;
@@ -65,13 +78,13 @@ public class Pedidos {
 		this.valorTotalDoPedido = valorTotalDoPedido;
 	}
 
-	public Date getDataDoPedido() {
-		return dataDoPedido;
-	}
-
-	public void setDataDoPedido(Date dataDoPedido) {
-		this.dataDoPedido = dataDoPedido;
-	}
+//	public Date getDataDoPedido() {
+//		return dataDoPedido;
+//	}
+//
+//	public void setDataDoPedido(Date dataDoPedido) {
+//		this.dataDoPedido = dataDoPedido;
+//	}
 
 	public String getStatus() {
 		return status;
@@ -81,13 +94,8 @@ public class Pedidos {
 		this.status = status;
 	}
 
-	public String getClienteId() {
-		return clienteId;
-	}
 
-	public void setClienteId(String clienteId) {
-		this.clienteId = clienteId;
-	}
 	
 	
 }
+
