@@ -1,13 +1,16 @@
 package com.cafeteria.model;
 
 
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,8 +42,15 @@ public class Usuario{
 	@Column(nullable = false, length = 60)
 	private String telefone;
 	
+	@OneToMany(mappedBy = "usuario")
+	private List<Pedidos> pedidos;
+//	
 //	@Column
 //	private Date dataNascimento;
+	
+	@OneToOne
+	@JoinColumn(name="endereco_id")
+	private Endereco endereco;
 	
 	public Usuario() {}
 	
@@ -116,3 +126,4 @@ public class Usuario{
 
 	
 }
+
