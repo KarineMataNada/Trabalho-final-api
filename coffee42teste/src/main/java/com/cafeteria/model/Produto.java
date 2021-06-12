@@ -2,11 +2,15 @@ package com.cafeteria.model;
 
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,6 +43,12 @@ public class Produto {
 	
 	//@Column(nullable = false)
 	//private Categoria categoria_id;
+//	
+	@OneToMany(mappedBy = "produto")
+	private List<Categoria> categoria;
+	
+	@ManyToMany(mappedBy = "produtos")
+	private List<Pedidos> pedidos;
 	
 	public Produto() {}
 	
@@ -121,4 +131,6 @@ public class Produto {
 	
 	
 }
+
+
 
