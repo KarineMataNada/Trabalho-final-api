@@ -6,11 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Entity
 @Table(name = "Categoria")
@@ -26,6 +25,10 @@ public class Categoria {
 	
 	@Column(nullable = false, length = 60)
 	private String descricao;
+	
+	@ManyToOne
+	@JoinColumn(name = "produto_id")
+	private Produto produto;
 	
 
 
@@ -55,3 +58,4 @@ public class Categoria {
 	
 	
 }
+
