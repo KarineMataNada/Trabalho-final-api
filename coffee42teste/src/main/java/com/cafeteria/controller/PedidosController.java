@@ -53,7 +53,7 @@ public class PedidosController {
 	//@ApiOperation(value = "Atualiza pedidos na lista por id")
 	@PutMapping("/{id}")
 	public Pedidos atualizar(@PathVariable(value = "id")Long id, @RequestBody Pedidos pedidos){
-		return servicoPedidos.atualizar(pedidos, id);
+		return servicoPedidos.atualizar(pedidos, id, false);
 	}
 	
 	//@ApiOperation(value = "Deleta pedidos por id")

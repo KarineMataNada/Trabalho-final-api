@@ -1,6 +1,5 @@
 package com.cafeteria.model;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -32,7 +31,7 @@ public class Pedidos {
 	
 	//private Date dataDoPedido;
 	
-	private String status;
+	private boolean statusFinalizado;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
@@ -78,6 +77,14 @@ public class Pedidos {
 		this.valorTotalDoPedido = valorTotalDoPedido;
 	}
 
+	public boolean isStatusFinalizado() {
+		return statusFinalizado;
+	}
+
+	public void setStatusFinalizado(boolean statusFinalizado) {
+		this.statusFinalizado = statusFinalizado;
+	}
+
 //	public Date getDataDoPedido() {
 //		return dataDoPedido;
 //	}
@@ -86,13 +93,6 @@ public class Pedidos {
 //		this.dataDoPedido = dataDoPedido;
 //	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 
 	

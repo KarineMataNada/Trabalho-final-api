@@ -1,6 +1,5 @@
 package com.cafeteria.model;
 
-
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -174,5 +173,3 @@ public class Usuario implements UserDetails{
 
 	
 }
-
-

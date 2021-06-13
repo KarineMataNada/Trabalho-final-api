@@ -42,6 +42,7 @@ public class CategoriaService {
 		return categoria;
 	}
 	
+	
 	public Categoria adicionar(Categoria Categoria) {
 		Categoria.setId(null);
 			

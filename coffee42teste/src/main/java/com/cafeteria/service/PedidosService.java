@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cafeteria.exception.ResourceForbiddenException;
 import com.cafeteria.exception.ResourceNotFoundException;
 import com.cafeteria.model.Pedidos;
 import com.cafeteria.repository.PedidosRepository;
@@ -39,24 +40,20 @@ public class PedidosService {
 	
 	public Pedidos adicionar(Pedidos Pedidos) {
 		Pedidos.setId(null);
-		
-//		if(repositorioPedidos.findByUsername(Pedidos.getUsername()).isPresent()) {
-//			
-//		}
-		
-//		String senha = passwordEnconder.encode(Pedidos.getSenha());
-//		Pedidos.setSenha(senha);
-//		
+
 		return repositorioPedidos.save(Pedidos);
 		
 	}
 	
-	 public Pedidos atualizar(Pedidos Pedidos, Long id) {
+	 public Pedidos atualizar(Pedidos Pedidos, Long id, boolean statusFinalizado) {
 		 Optional<Pedidos> PedidosAtualizado = repositorioPedidos.findById(id);
 		 
 		if(PedidosAtualizado.isEmpty()) {
 			throw new ResourceNotFoundException("Pedidos não encontrado por id");
+		} else if (statusFinalizado == true) {
+			throw new ResourceForbiddenException("Acesso negado! Esse pedido ja foi finalizado e não pode mais ser alterado.");
 		}
+		
 		Pedidos.setId(id);		
 		return repositorioPedidos.save(Pedidos);
 		

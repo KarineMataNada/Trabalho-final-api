@@ -32,7 +32,7 @@ public class EnderecoController {
 	private EnderecoService servicoEndereco;
 		
 	@ApiOperation(value = "Retorna toda lista de Enderecos")
-	@GetMapping
+	@GetMapping 
 	public List<Endereco> obterTodos() {
 		return servicoEndereco.obterTodos();
 	}
