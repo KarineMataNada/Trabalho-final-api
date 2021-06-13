@@ -32,6 +32,15 @@ public class CategoriaService {
 		return Categoria;
 	}
 	
+	public List<Categoria> obterPorNome(String nome) {
+		List<Categoria> categoria = repositorioCategoria.findByNomeContaining(nome);	
+		
+		if(categoria.isEmpty()) {
+			throw new ResourceNotFoundException("Usuario não encontrado!");
+		}
+		
+		return categoria;
+	}
 	
 	public Categoria adicionar(Categoria Categoria) {
 		Categoria.setId(null);
