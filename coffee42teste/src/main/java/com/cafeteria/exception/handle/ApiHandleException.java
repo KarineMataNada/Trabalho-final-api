@@ -6,11 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException.Forbidden;
 
 import com.cafeteria.exception.ResourceBadRequestException;
 import com.cafeteria.exception.ResourceForbiddenException;
 import com.cafeteria.exception.ResourceInternalServerErrorException;
 import com.cafeteria.exception.ResourceInternalServerErrorException.ResourceNotFoundException;
+import com.cafeteria.exception.ResourceNotAcceptableException;
 import com.cafeteria.exception.error.ErrorMessage;
 
 
@@ -44,7 +46,7 @@ public class ApiHandleException {
 	}
 	
 	@ExceptionHandler(ResourceInternalServerErrorException.class)
-	public ResponseEntity<?> handlerInternalServerError(Exception exception){
+	public ResponseEntity<?> handlerInternalServerError(ResourceInternalServerErrorException exception){
 		ErrorMessage errorMessage = new ErrorMessage(
 				"Internal Server Error",
 				HttpStatus.INTERNAL_SERVER_ERROR.value(),
@@ -56,7 +58,7 @@ public class ApiHandleException {
 	}
 	
 	@ExceptionHandler(ResourceForbiddenException.class)
-	public ResponseEntity<?> handlerForbiddenException(Exception exception){
+	public ResponseEntity<?> handlerForbiddenException(ResourceForbiddenException exception){
 		ErrorMessage errorMessage = new ErrorMessage(
 				"403 Forbidden",
 				HttpStatus.FORBIDDEN.value(),
@@ -65,6 +67,18 @@ public class ApiHandleException {
 				new Date().getTime());
 		
 		return new ResponseEntity<>(errorMessage, HttpStatus.FORBIDDEN);
+	}
+	
+	@ExceptionHandler(ResourceNotAcceptableException.class)
+	public ResponseEntity<?> handlerNotAccptableException(ResourceNotAcceptableException exception){
+		ErrorMessage errorMessage = new ErrorMessage(
+				"406 Not Acceptable",
+				HttpStatus.NOT_ACCEPTABLE.value(),
+				exception.getMessage(),
+				exception.getClass().getName(),
+				new Date().getTime());
+		
+		return new ResponseEntity<>(errorMessage, HttpStatus.NOT_ACCEPTABLE);
 	}
 
 	

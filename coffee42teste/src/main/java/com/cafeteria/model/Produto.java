@@ -33,9 +33,8 @@ public class Produto {
 	
 	//@Column(nullable = false)
 	//private Date dataCadastro;
-	
-	//@Column(nullable = false)
-	//private MultipartFile imagem;
+
+	private String imagem;
 	
 	//@Column(nullable = false)
 	//private Categoria categoria_id;
@@ -92,6 +91,14 @@ public class Produto {
 	
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 	
 //	public Date getDataCadastro() {

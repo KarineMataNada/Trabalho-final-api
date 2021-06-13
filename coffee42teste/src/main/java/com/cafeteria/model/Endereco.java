@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,102 +22,106 @@ public class Endereco {
 	private String cep;
 	
 	@Column(nullable = false, length = 60)
-	private String rua;
+	private String logradouro;
 	
 	@Column(nullable = false, length = 60)
 	private String bairro;
 	
 	@Column(nullable = false, length = 60)
-	private String cidade;
+	private String localidade;
 	
-	@Column(nullable = false, length = 10)
+	@Column(nullable = true, length = 10)
 	private Integer numero;
 	
-	@Column(nullable = false, length = 255)
+	@Column(nullable = true, length = 255)
 	private String complemento;
 	
 	@Column(nullable = false, length = 60)
-	private String estado;
+	private String uf;
+	
+	@OneToOne(mappedBy = "endereco")
+	private Usuario usuario;
 	
 	public Endereco() {}
 	
-	public Endereco(Long id, String cep, String rua, String bairro, String cidade, Integer numero, String complemento,
-			String estado) {
+	public Endereco(Long id, String cep, String logradouro, String bairro, String localidade, Integer numero,
+			String complemento, String uf) {
 		super();
 		this.id = id;
 		this.cep = cep;
-		this.rua = rua;
+		this.logradouro = logradouro;
 		this.bairro = bairro;
-		this.cidade = cidade;
+		this.localidade = localidade;
 		this.numero = numero;
 		this.complemento = complemento;
-		this.estado = estado;
+		this.uf = uf;
 	}
 
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getCep() {
 		return cep;
 	}
-	
+
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
-	public String getRua() {
-		return rua;
+
+	public String getLogradouro() {
+		return logradouro;
 	}
-	
-	public void setRua(String rua) {
-		this.rua = rua;
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
-	
+
 	public String getBairro() {
 		return bairro;
 	}
-	
+
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	
-	public String getCidade() {
-		return cidade;
+
+	public String getLocalidade() {
+		return localidade;
 	}
-	
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
-	
+
 	public Integer getNumero() {
 		return numero;
 	}
-	
+
 	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
-	
+
 	public String getComplemento() {
 		return complemento;
 	}
-	
+
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
-	
-	public String getEstado() {
-		return estado;
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 	
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	
+
 	
 	
 }

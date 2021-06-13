@@ -11,9 +11,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.cafeteria.dto.LoginResponse;
+import com.cafeteria.exception.ResourceNotAcceptableException;
+//import com.cafeteria.exception.ResourceNotAcceptableException;
 import com.cafeteria.exception.ResourceNotFoundException;
+import com.cafeteria.model.Endereco;
 import com.cafeteria.model.Usuario;
 import com.cafeteria.repository.UsuarioRepository;
 import com.cafeteria.security.JWTService;
@@ -37,6 +41,12 @@ public class UsuarioService {
 
     @Autowired
     private PasswordEncoder passwordEnconder;
+    
+    @Autowired
+    private CepService cepService;
+    
+    @Autowired
+    private WebClient webClient;
 	
 
 	public List<Usuario> obterTodos() {
@@ -70,9 +80,10 @@ public class UsuarioService {
 		usuario.setId(null);
 		
 		if(repositorioUsuario.findByUsername(usuario.getUsername()).isPresent()) {
-			
+			throw new ResourceNotAcceptableException("Usuario já existe");
 	}
-		
+		Endereco endereco = cepService.obterEnderecoPorCep(usuario.getEndereco().getCep());
+		usuario.setEndereco(endereco);
 		String senha = passwordEnconder.encode(usuario.getSenha());
 		usuario.setSenha(senha);
 		

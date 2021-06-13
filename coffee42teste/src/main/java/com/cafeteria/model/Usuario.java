@@ -1,14 +1,19 @@
 package com.cafeteria.model;
 
 import java.util.Collection;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +28,7 @@ public class Usuario implements UserDetails{
 
 	private static final long serialVersionUID = 6782569577224744716L;
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator_usuario")
 	private Long id;
@@ -45,13 +51,17 @@ public class Usuario implements UserDetails{
 	@Column(nullable = false, length = 60)
 	private String telefone;
 	
-//	@Column
-//	private Date dataNascimento;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "endereco_id")	
+	private Endereco endereco;
+	
+	@Column(nullable = true, length = 20)
+	private Date dataNascimento;
 	
 	public Usuario() {}
 	
 	
-	public Usuario(String email, String username, String senha, String nome, String cpf, String telefone) {
+	public Usuario(String email, String username, String senha, String nome, String cpf, String telefone,Endereco endereco,Date dataNascimento) {
 		super();
 		this.email = email;
 		this.username = username;
@@ -59,9 +69,11 @@ public class Usuario implements UserDetails{
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
+		this.endereco = endereco;
+		this.dataNascimento = dataNascimento;
 	}
 	
-	public Usuario(Long id, String email, String username, String senha, String nome, String cpf, String telefone) {
+	public Usuario(Long id, String email, String username, String senha, String nome, String cpf, String telefone, Endereco endereco,Date dataNascimento) {
 	
 		this.id = id;
 		this.email = email;
@@ -70,10 +82,21 @@ public class Usuario implements UserDetails{
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
-//		this.dataNascimento = dataNascimento;
+		this.endereco = endereco;
+		this.dataNascimento = dataNascimento;
 		
 	}
 
+
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 
 
 	public Long getId() {
@@ -132,6 +155,16 @@ public class Usuario implements UserDetails{
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -169,7 +202,11 @@ public class Usuario implements UserDetails{
 
 		return true;
 	}
-	
+
+
+
+
+
 
 	
 }

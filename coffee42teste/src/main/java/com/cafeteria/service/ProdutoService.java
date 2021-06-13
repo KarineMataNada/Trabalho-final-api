@@ -51,12 +51,12 @@ public class ProdutoService {
 	}
 
 	public Produto atualizar(Produto Produto, Long id) {
-		Optional<Produto> ProdutoAtt = repositorioProduto.findById(id);
+		Optional<Produto> produtoAtt = repositorioProduto.findById(id);
 
-		if (ProdutoAtt.isEmpty()) {
+		if (produtoAtt.isEmpty()) {
 			throw new ResourceNotFoundException("Produto não encontrado por id");
 		}
-		repositorioProduto.deleteById(id);
+		produtoAtt.get().setId(id);
 		return repositorioProduto.save(Produto);
 
 	}
