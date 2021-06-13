@@ -18,7 +18,7 @@ import com.cafeteria.model.Categoria;
 import com.cafeteria.service.CategoriaService;
 
 @RestController
-@RequestMapping("/api/categoria")
+@RequestMapping("/api/categorias")
 public class CategoriaController {
 
 	@Autowired
