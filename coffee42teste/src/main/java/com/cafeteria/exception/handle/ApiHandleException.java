@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.coffeeshop42.exception.ResourceBadRequestException;
-import com.coffeeshop42.exception.ResourceNotFoundException;
-import com.coffeeshop42.exception.error.ErrorMessage;
+import com.cafeteria.exception.ResourceBadRequestException;
+import com.cafeteria.exception.ResourceForbiddenException;
+import com.cafeteria.exception.ResourceInternalServerErrorException;
+import com.cafeteria.exception.ResourceInternalServerErrorException.ResourceNotFoundException;
+import com.cafeteria.exception.error.ErrorMessage;
 
 
 @ControllerAdvice
@@ -41,7 +43,7 @@ public class ApiHandleException {
 		
 	}
 	
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(ResourceInternalServerErrorException.class)
 	public ResponseEntity<?> handlerInternalServerError(Exception exception){
 		ErrorMessage errorMessage = new ErrorMessage(
 				"Internal Server Error",
@@ -53,8 +55,8 @@ public class ApiHandleException {
 		return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> handle(Exception exception){
+	@ExceptionHandler(ResourceForbiddenException.class)
+	public ResponseEntity<?> handlerForbiddenException(Exception exception){
 		ErrorMessage errorMessage = new ErrorMessage(
 				"403 Forbidden",
 				HttpStatus.FORBIDDEN.value(),
@@ -67,3 +69,4 @@ public class ApiHandleException {
 
 	
 }
+
