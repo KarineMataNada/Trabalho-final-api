@@ -25,6 +25,9 @@ import com.cafeteria.model.email.MensagemEmail;
 import com.cafeteria.repository.UsuarioRepository;
 import com.cafeteria.security.JWTService;
 
+import br.com.caelum.stella.validation.CPFValidator;
+import br.com.caelum.stella.validation.InvalidStateException;
+
 
 
 @Service
@@ -88,6 +91,7 @@ public class UsuarioService {
 		if(repositorioUsuario.findByUsername(usuario.getUsername()).isPresent()) {
 			throw new ResourceNotAcceptableException("Usuario já existe");
 	}
+		validarCPF(usuario.getCpf());
 		
 		
 		Endereco endereco = cepService.obterEnderecoPorCep(usuario.getEndereco().getCep());
@@ -157,5 +161,15 @@ public class UsuarioService {
 		return new LoginResponse(token, usuario.get());
 	}
 	
-}
+	public void validarCPF(String cpf) {
+        try {
+            CPFValidator cpfValidado = new CPFValidator();
+            cpfValidado.assertValid(cpf);
+
+        } catch (InvalidStateException e) {
+            throw new ResourceBadRequestException("CPF invalido!");
+        }
+  }
+}	
+
 
