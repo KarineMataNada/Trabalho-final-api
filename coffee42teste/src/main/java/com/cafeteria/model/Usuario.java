@@ -33,7 +33,7 @@ public class Usuario implements UserDetails{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator_usuario")
 	private Long id;
 	
-	@Column(nullable = false, length = 255, unique = true)
+	@Column(nullable = false, length = 255)
 	private String email; 
 	
 	@Column(nullable = false, length = 60, unique = true)
@@ -45,7 +45,7 @@ public class Usuario implements UserDetails{
 	@Column(nullable = false, length = 60)
 	private String nome;
 	
-	@Column(nullable = false, length = 11, unique = true)
+	@Column(nullable = false, length = 11)
 	private String cpf;
 	
 	@Column(nullable = false, length = 60)
