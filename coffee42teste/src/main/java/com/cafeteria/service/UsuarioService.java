@@ -86,6 +86,8 @@ public class UsuarioService {
 	public Usuario adicionar(Usuario usuario) {
 		usuario.setId(null);
 		
+		var numero = usuario.getEndereco().getNumero();
+		var complemento = usuario.getEndereco().getComplemento();
 		
 		if(repositorioUsuario.findByUsername(usuario.getUsername()).isPresent()) {
 			throw new ResourceUnprocessableEntityException("Usuario ja existe!");
@@ -98,6 +100,8 @@ public class UsuarioService {
 		String senha = passwordEnconder.encode(usuario.getSenha());
 		usuario.setSenha(senha);
 		
+		usuario.getEndereco().setNumero(numero);
+		usuario.getEndereco().setComplemento(complemento);
 		
 		this.repositorioUsuario.save(usuario);
 		
