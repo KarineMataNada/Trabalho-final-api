@@ -89,7 +89,7 @@ public class UsuarioService {
 		
 		
 		if(repositorioUsuario.findByUsername(usuario.getUsername()).isPresent()) {
-			throw new ResourceNotAcceptableException("Usuario já existe");
+			throw new ResourceUnprocessableEntityException("Usuario ja existe!");
 	}
 		validarCPF(usuario.getCpf());
 		
