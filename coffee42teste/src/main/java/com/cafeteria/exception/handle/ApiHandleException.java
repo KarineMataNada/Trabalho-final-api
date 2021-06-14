@@ -80,6 +80,19 @@ public class ApiHandleException {
 		
 		return new ResponseEntity<>(errorMessage, HttpStatus.NOT_ACCEPTABLE);
 	}
+	      
+	@ExceptionHandler(ResourceUnprocessableEntityException.class)
+        public ResponseEntity<?> handlerUnprocessableException(Exception exception){
+	ErrorMessage errorMessage = new ErrorMessage(
+			"422 UnprocessableEntity",
+			HttpStatus.UNPROCESSABLE_ENTITY.value(),
+			exception.getMessage(),
+			exception.getClass().getName(),
+			new Date().getTime());
+	
+	return new ResponseEntity<>(errorMessage, HttpStatus.UNPROCESSABLE_ENTITY);
+}
+
 
 	
 }
