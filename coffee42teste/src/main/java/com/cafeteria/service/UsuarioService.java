@@ -28,7 +28,7 @@ import com.cafeteria.security.JWTService;
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
 
-
+import com.cafeteria.exception.ResourceUnprocessableEntityException;
 
 @Service
 public class UsuarioService {
