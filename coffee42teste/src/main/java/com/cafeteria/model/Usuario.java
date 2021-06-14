@@ -55,6 +55,7 @@ public class Usuario implements UserDetails{
 	@JoinColumn(name = "endereco_id")	
 	private Endereco endereco;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(nullable = true, length = 20)
 	private Date dataNascimento;
 	
