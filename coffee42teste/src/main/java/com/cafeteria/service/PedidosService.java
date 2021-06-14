@@ -45,17 +45,17 @@ public class PedidosService {
 		
 	}
 	
-	 public Pedidos atualizar(Pedidos Pedidos, Long id, boolean statusFinalizado) {
-		 Optional<Pedidos> PedidosAtualizado = repositorioPedidos.findById(id);
+	 public Pedidos atualizar(Pedidos pedidos, Long id) {
+		 Optional<Pedidos> pedidosAtualizado = repositorioPedidos.findById(id);
 		 
-		if(PedidosAtualizado.isEmpty()) {
+		if(pedidosAtualizado.isEmpty()) {
 			throw new ResourceNotFoundException("Pedidos não encontrado por id");
-		} else if (statusFinalizado == true) {
+		} if (pedidosAtualizado.get().getStatusFinalizado() == true) {
 			throw new ResourceForbiddenException("Acesso negado! Esse pedido ja foi finalizado e não pode mais ser alterado.");
 		}
 		
-		Pedidos.setId(id);		
-		return repositorioPedidos.save(Pedidos);
+		pedidos.setId(id);		
+		return repositorioPedidos.save(pedidos);
 		
 	}
 
@@ -69,20 +69,5 @@ public class PedidosService {
 	    
 		repositorioPedidos.deleteById(id);	 
 }
-	
-//	public LoginResponse logar(String username, String senha) {
-//		
-//		Authentication autenticacao = authenticationManager.authenticate(
-//				new UsernamePasswordAuthenticationToken(username, senha, Collections.emptyList()));
-//		
-//		SecurityContextHolder.getContext().setAuthentication(autenticacao);
-//		
-//		String token = headerPrefix + jwtService.gerarToken(autenticacao);
-//		
-//		var Pedidos = repositorioPedidos.findByUsername(username);
-//		
-//		return new LoginResponse(token, Pedidos.get());
-//	}
-//	
 
 }
