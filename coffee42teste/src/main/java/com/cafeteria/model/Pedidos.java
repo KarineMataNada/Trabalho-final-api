@@ -31,7 +31,7 @@ public class Pedidos {
 	
 	//private Date dataDoPedido;
 	
-	private boolean statusFinalizado;
+	private boolean statusFinalizado = false;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
@@ -77,7 +77,7 @@ public class Pedidos {
 		this.valorTotalDoPedido = valorTotalDoPedido;
 	}
 
-	public boolean isStatusFinalizado() {
+	public boolean getStatusFinalizado() {
 		return statusFinalizado;
 	}
 
